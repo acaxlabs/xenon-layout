@@ -1,18 +1,20 @@
 <link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../iron-icon/iron-icon.html"/>
+<link rel="import" href="../iron-icons/iron-icons.html"/>
 <dom-module id="xenon-layout">
     <template>
         <style>
             :host { font-family: Roboto, Arial, Helvetica, sans-serif }
           
-            #body { height:100%; margin-left:200px; width:500px; box-sizing: border-box; position:relative; }
+            #body { height:100%; box-sizing: border-box; position:relative; }
             #main { position:absolute; overflow-y: scroll; overflow-x: hidden; height:100%; box-sizing: border-box; }
-            #header { position:absolute; top:0px; width: inherit; }
+            #header { position:absolute; top:0px; width: inherit; display:flex; align-items: center; box-sizing: border-box;}
             #footer { position:absolute; bottom: 0px; width: inherit; }
             #nav { position:absolute; height:100%; width:200px; z-index:100; }
 
-            #header ::content > * { padding: 16px; background-color: darkslateblue; color:white; font-weight: 100; }
+            #header ::content { padding: 16px; background-color: darkslateblue; color:white; font-weight: 100; }
             #footer ::content > * { padding: 16px; background-color: lightgray; }
-            #nav ::content > * { padding: 16px; background-color: whitesmoke; box-sizing: border-box; height:100%; }
+            #nav ::content > * { padding: 16px; background-color: whitesmoke; box-sizing: border-box; height:100%; box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5); }
             #main ::content > * { padding:16px; }
         </style>
 
@@ -20,8 +22,8 @@
            <content select="nav"></content>
        </div>
         <div id="body">
-            <div id="header" on-tap="shownav">
-                <content select="header"></content>
+            <div id="header">
+                <iron-icon icon="menu" on-tap="shownav"></iron-icon>&nbsp;&nbsp;<content select="header"></content>
             </div>
             <div id="main">
                 <content select="main"></content>
