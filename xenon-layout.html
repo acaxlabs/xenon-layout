@@ -1,0 +1,63 @@
+<link rel="import" href="../polymer/polymer.html"/>
+<dom-module id="xenon-layout">
+    <template>
+        <style>
+            :host { font-family: Roboto, Arial, Helvetica, sans-serif}
+            #nav { flex:0 0 200px; box-sizing: border-box; height:100%; }
+            #bodywrap { display:flex; align-items:stretch; height:100%; }
+            #header {  color:white; font-weight: 100; font-size: 1.1em; position:fixed; top:0px; width:inherit; }
+            #main { height:100%; box-sizing: border-box; overflow-y:scroll; overflow-x: hidden; }
+            #footer { position: fixed; bottom: 0px; width:inherit; }
+            #body { box-sizing: border-box; height:100%; width:100%; }
+            #header ::content > *  { padding: 16px; background-color: darkslateblue; }
+            #footer ::content > *  { padding: 16px; background-color: lightgray; }
+            #nav ::content > *     { padding: 16px; background-color: whitesmoke; box-sizing: border-box; height:100%; }
+            #main ::content > * { padding: 16px; }
+            @media (max-width: 650px) {
+                #nav { position:absolute; z-index: 100; height:100%; width:200px; display: none; }
+            }
+        </style>
+
+        <div id="bodywrap">
+            <div id="nav">
+                <content select="nav"></content>
+            </div>
+            <div id="body">
+                <div id="header" on-tap="shownav">
+                    <content select="header"></content>
+                </div>
+                <div id="main">
+                    <content select="main"></content>
+                </div>
+                <div id="footer">
+                    <content select="footer"></content>
+                </div>
+            </div>
+        </div>
+
+    </template>
+    <script>
+        Polymer({
+            is: "xenon-layout", 
+            properties: {
+                title: { type: String, value: "Welcome" }
+            },      
+            ready: function() {
+                this.listen(window, "resize", "resize");
+            },
+            attached: function() {
+                this.resize();
+            },
+            shownav: function() {
+                this.$.nav.style.display = (this.$.nav.style.display == "block") ? "none" : "block";
+            },
+            resize: function() {
+                this.$.main.style.paddingTop = this.$.header.offsetHeight;
+                this.$.main.style.paddingBottom = this.$.footer.offsetHeight;
+            }
+        })
+    </script>
+</dom-module>
+
+
+        
