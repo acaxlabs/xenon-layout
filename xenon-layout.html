@@ -16,6 +16,9 @@
             #footer ::content > * { padding: 16px; background-color: lightgray; }
             #nav ::content > * { padding: 16px; background-color: whitesmoke; box-sizing: border-box; height:100%; box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5); }
             #main ::content > * { padding:16px; }
+
+            .title { flex: 1 1 auto; }
+            #header iron-icon { margin-right:16px; }
         </style>
 
        <div id="nav">
@@ -23,7 +26,7 @@
        </div>
         <div id="body">
             <div id="header">
-                <iron-icon icon="menu" on-tap="shownav"></iron-icon>&nbsp;&nbsp;<content select="header"></content>
+                <iron-icon id="menuicon" icon="menu" on-tap="shownav"></iron-icon><div class="title">{{title}}</div><content select="header"></content>
             </div>
             <div id="main">
                 <content select="main"></content>
@@ -39,6 +42,7 @@
         Polymer({
             is: "xenon-layout", 
             properties: {
+                title: String, 
                 expanded: Boolean
             },      
             ready: function() {
@@ -58,11 +62,13 @@
                     this.$.body.style.width = width;
                     this.expanded = false; 
                     this.$.nav.style.display = "none";
+                    this.$.menuicon.hidden = false;
                 } else {
                     this.$.body.style.marginLeft = 200;
                     this.$.body.style.width = width - 200;
                     this.expanded = true; 
                     this.$.nav.style.display = "block";
+                    this.$.menuicon.hidden = true;
                 }
                 this.$.main.style.top = this.$.header.offsetHeight;
                 this.$.main.style.height = window.innerHeight - this.$.header.offsetHeight - this.$.footer.offsetHeight;
