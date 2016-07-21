@@ -4,8 +4,8 @@
         <style>
             :host { font-family: Roboto, Arial, Helvetica, sans-serif }
           
-            #body { height:100%; margin-left:200px; width:500px; box-sizing: border-box; }
-            #main { overflow-y: scroll; overflow-x: hidden; height:100%; box-sizing: border-box; }
+            #body { height:100%; margin-left:200px; width:500px; box-sizing: border-box; position:relative; }
+            #main { position:absolute; overflow-y: scroll; overflow-x: hidden; height:100%; box-sizing: border-box; }
             #header { position:absolute; top:0px; width: inherit; }
             #footer { position:absolute; bottom: 0px; width: inherit; }
             #nav { position:absolute; height:100%; width:200px; z-index:100; }
@@ -13,7 +13,7 @@
             #header ::content > * { padding: 16px; background-color: darkslateblue; color:white; font-weight: 100; }
             #footer ::content > * { padding: 16px; background-color: lightgray; }
             #nav ::content > * { padding: 16px; background-color: whitesmoke; box-sizing: border-box; height:100%; }
-            #main ::content > * { padding: 16px; }
+            #main ::content > * { padding:16px; }
         </style>
 
        <div id="nav">
@@ -62,8 +62,8 @@
                     this.expanded = true; 
                     this.$.nav.style.display = "block";
                 }
-                this.$.main.style.paddingTop = this.$.header.offsetHeight;
-                this.$.main.style.paddingBottom = this.$.footer.offsetHeight;
+                this.$.main.style.top = this.$.header.offsetHeight;
+                this.$.main.style.height = window.innerHeight - this.$.header.offsetHeight - this.$.footer.offsetHeight;
             }
         })
     </script>
