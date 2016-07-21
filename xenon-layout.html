@@ -27,7 +27,7 @@
         <div id="body">
             <div id="header">
                 <iron-icon id="menuicon" icon="menu" on-tap="shownav"></iron-icon>
-                <div class="title">{{title}}</div>
+                <div class="title">{{titletext}}</div>
                 <content select="header"></content>
             </div>
             <div id="main">
@@ -44,7 +44,7 @@
         Polymer({
             is: "xenon-layout", 
             properties: {
-                title: String, 
+                titletext: String, 
                 expanded: Boolean
             },      
             ready: function() {
