@@ -7,15 +7,15 @@
             :host { font-family: Roboto, Arial, Helvetica, sans-serif }
           
             #body { height:100%; box-sizing: border-box; position:relative; }
-            #main { position:absolute; overflow-y: scroll; overflow-x: hidden; height:100%; box-sizing: border-box; }
+            #main { position:absolute; overflow-y: scroll; overflow-x: hidden; height:100%; width:inherit; box-sizing: border-box; }
             #header { position:absolute; top:0px; width: inherit; display:flex; align-items: center; box-sizing: border-box;}
             #footer { position:absolute; bottom: 0px; width: inherit; }
-            #nav { position:absolute; height:100%; width:200px; z-index:100; }
+            #nav { position:absolute; height:100%; width:250px; z-index:100; }
 
-            #header ::content { padding: 16px; background-color: darkslateblue; color:white; font-weight: 100; }
+            #header ::content { padding: 24px; background-color: darkslateblue; color:white; font-weight: 100; }
             #footer ::content > * { padding: 16px; background-color: lightgray; }
-            #nav ::content > * { padding: 16px; background-color: whitesmoke; box-sizing: border-box; height:100%; box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5); }
-            #main ::content > * { padding:16px; }
+            #nav ::content > * { padding: 16px; background-color: whitesmoke; box-sizing: border-box; height:100%; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
+            #main ::content > * { padding:16px; max-width:1000px; }
 
             .title { flex: 1 1 auto; }
             #header iron-icon { margin-right:16px; }
@@ -26,7 +26,9 @@
        </div>
         <div id="body">
             <div id="header">
-                <iron-icon id="menuicon" icon="menu" on-tap="shownav"></iron-icon><div class="title">{{title}}</div><content select="header"></content>
+                <iron-icon id="menuicon" icon="menu" on-tap="shownav"></iron-icon>
+                <div class="title">{{title}}</div>
+                <content select="header"></content>
             </div>
             <div id="main">
                 <content select="main"></content>
@@ -64,8 +66,8 @@
                     this.$.nav.style.display = "none";
                     this.$.menuicon.hidden = false;
                 } else {
-                    this.$.body.style.marginLeft = 200;
-                    this.$.body.style.width = width - 200;
+                    this.$.body.style.marginLeft = 250;
+                    this.$.body.style.width = width - 250;
                     this.expanded = true; 
                     this.$.nav.style.display = "block";
                     this.$.menuicon.hidden = true;
