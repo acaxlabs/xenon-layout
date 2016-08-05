@@ -1,0 +1,27 @@
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../iron-icon/iron-icon.html"/>
+<link rel="import" href="../iron-icons/iron-icons.html"/>
+
+<dom-module id="nav-item">
+<template>
+    <style>
+        #navlink { height:56px; display:flex; align-items:center; border-bottom: 1px solid lightgrey; color:dimgrey; padding-left:16px; padding-right:20px; cursor:pointer; }
+        #navlink:hover { background-color:#bdbdbd; }
+    </style>
+    <div id="navlink" on-tap="navigate"><content></content><div>
+</template>
+<script>
+    Polymer({
+        is:"nav-item",
+        properties: {
+            href: String
+        },
+        navigate: function() {
+            if(this.href == undefined) return; 
+            this.fire("xenon-layout-navigate");
+            window.location = this.href;
+        }
+    })
+    
+</script>
+</dom-module>

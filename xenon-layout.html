@@ -9,25 +9,25 @@
             #main { z-index: 0; background-color: whitesmoke; position:absolute; overflow-y: scroll; overflow-x: hidden; height:100%; width:inherit; box-sizing: border-box; }
             #header { z-index: 10; position:absolute; top:0px; width: inherit; display:flex; align-items: center; box-sizing: border-box; box-shadow: 0px 0px 2px #000 }
             #footer { z-index: 10; position:absolute; bottom: 0px; width: inherit; box-shadow: 0px 0px 2px #000 }
-            #nav { z-index:100; position:absolute; height:100%; width:250px; }
+            #nav { z-index:100; position:absolute; height:100%; width:250px; background-color:gainsboro }
             #header ::content { z-index:10; padding: 24px; background-color: darkslateblue; color:white; font-weight: 100; }
             #footer ::content > * { z-index:10; padding: 16px; background-color: lightgray; }
-            #nav ::content > * { z-index:100; padding: 16px; background-color: white; box-sizing: border-box; height:100%; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
+            #nav ::content > * { z-index:100; padding: 16px;  box-sizing: border-box; height:100%; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
             #main ::content > * { z-index: 0; padding:16px; max-width:1000px; margin:auto; }
             .titletext { flex: 1 1 auto; }
             #header iron-icon { margin-right:16px; }
         </style>
 
-       <div id="nav">
-           <content select="nav"></content>
-       </div>
+        <div id="nav">
+            <content select="nav"></content>
+        </div>
         <div id="body">
             <div id="header">
                 <iron-icon id="menuicon" icon="menu" on-tap="showNav"></iron-icon>
                 <div class="titletext">{{titletext}}</div>
                 <content select="header"></content>
             </div>
-            <div id="main">
+            <div id="main" on-tap="hideNav">
                 <content select="main"></content>
             </div>
             <div id="footer">
@@ -35,19 +35,25 @@
             </div>
         </div>
         
-
     </template>
     <script>
         Polymer({
             is: "xenon-layout", 
             properties: {
                 titletext: String
-            },      
+            },
+            listeners: {
+                "xenon-layout-navigate" : "navigate"
+            },
             ready: function() {
                 this.listen(window, "resize", "redraw");
             },
             attached: function() {
                 this.redraw();
+            },
+            navigate: function() {
+                var width = window.innerWidth;
+                if(width < 650) this.hideNav();
             },
             // show nav panel when the screen is mobile size
             showNav: function() {
