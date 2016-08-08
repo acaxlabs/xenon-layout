@@ -4,87 +4,68 @@
 <dom-module id="xenon-layout">
     <template>
         <style>
-            :host { font-family: Roboto, Arial, Helvetica, sans-serif }
-            #body { height:100%; box-sizing: border-box; position:relative; }
-            #main { z-index: 0; background-color: whitesmoke; position:absolute; overflow-y: scroll; overflow-x: hidden; height:100%; width:inherit; box-sizing: border-box; }
-            #header { z-index: 10; position:absolute; top:0px; width: inherit; display:flex; align-items: center; box-sizing: border-box; box-shadow: 0px 0px 2px #000 }
-            #footer { z-index: 10; position:absolute; bottom: 0px; width: inherit; box-shadow: 0px 0px 2px #000 }
-            #nav { z-index:100; position:absolute; height:100%; width:250px; background-color:gainsboro }
-            #header ::content { z-index:10; padding: 24px; background-color: darkslateblue; color:white; font-weight: 100; }
-            #footer ::content > * { z-index:10; padding: 16px; background-color: lightgray; }
-            #nav ::content > * { z-index:100; padding: 16px;  box-sizing: border-box; height:100%; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
-           #main ::content > * { z-index: 0; padding:16px; max-width:1000px; margin:auto; }
-            .titletext { flex: 1 1 auto; }
-            #header iron-icon { margin-right:16px; }
-        </style>
+            #wrapper { height:100%; display:flex; flex-direction: column; margin-left:250px;}
+            #main { z-index: 0; flex: 1 1 auto; overflow-y:scroll; background-color:whitesmoke; }
+            #scrim { z-index: 20; position:absolute; height:100%; width:250px; background-color: rgba(0,0,0,0.2); }
+            #nav { width: 250px; background-color:gainsboro; height:100%; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
+            #head { z-index: 10; background-color:darkslateblue; color:white; flex: 0 0 72px; display:flex; align-items:center; padding-left: 12px; padding-right:12px;} 
+            #foot { z-index: 10; background-color:gainsboro; }
+            #titletext { flex: 1 1 auto; margin-left:8px; }
 
-        <div id="nav">
-            <content select="nav"></content>
+            @media only screen and (max-width: 650px) {
+                #scrim { width:100%; }
+                #wrapper { margin-left: 0px; }
+            }
+
+        </style>
+        <div id="scrim" on-tap="navTap">
+            <div id="nav">
+                <content select="nav"></content>
+            </div>
         </div>
-        <div id="body">
-            <div id="header">
-                <iron-icon id="menuicon" icon="menu" on-tap="showNav"></iron-icon>
-                <div class="titletext">{{titletext}}</div>
+        <div id="wrapper">
+            <div id="head">
+                <iron-icon icon="menu" on-tap="showNav"></iron-icon>
+                <div id="titletext">{{titleText}}</div>
                 <content select="header"></content>
             </div>
-            <div id="main" on-tap="hideNav">
+            <div id="main">
                 <content select="main"></content>
             </div>
-            <div id="footer">
+            <div id="foot">
                 <content select="footer"></content>
             </div>
         </div>
-        
     </template>
     <script>
         Polymer({
             is: "xenon-layout", 
             properties: {
-                titletext: String
-            },
-            listeners: {
-                "xenon-layout-navigate" : "navigate"
+                titleText: String
             },
             ready: function() {
                 this.listen(window, "resize", "redraw");
-            },
-            attached: function() {
                 this.redraw();
             },
-            navigate: function() {
-                var width = window.innerWidth;
-                if(width < 650) this.hideNav();
-            },
-            // show nav panel when the screen is mobile size
             showNav: function() {
-                this.$.nav.hidden = false;
-            },
-            // hide the nav panel when screen is mobile size
+                this.$.scrim.style.display = "block";
+            }, 
             hideNav: function() {
-                this.$.nav.hidden = true;
+                this.$.scrim.style.display = "none";
             },
-            // rearrange the nav bar, header, and footer
-            redraw: function() {
-                var navwidth = 250; 
+            navTap: function() {
                 var width = window.innerWidth;
-                this.$.nav.style.width = navwidth;
-                if(width < 650) {
-                    this.$.body.style.marginLeft = 0;
-                    this.$.body.style.width = width;
-                    this.$.nav.hidden = true;
-                    this.$.menuicon.hidden = false;
+                if(width <= 650) this.hideNav();
+            },
+            redraw: function() {
+                var width = window.innerWidth;
+                if(width > 650) {
+                    this.showNav();
                 } else {
-                    this.$.body.style.marginLeft = navwidth;
-                    this.$.body.style.width = width - navwidth;
-                    this.$.nav.hidden = false;
-                    this.$.menuicon.hidden = true;
+                    this.hideNav();
                 }
-                this.$.main.style.top = this.$.header.offsetHeight;
-                this.$.main.style.height = window.innerHeight - this.$.header.offsetHeight - this.$.footer.offsetHeight;
+                
             }
-        })
+        });
     </script>
 </dom-module>
-
-
-        
