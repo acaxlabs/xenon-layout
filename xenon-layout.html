@@ -55,12 +55,10 @@
                 this.$.scrim.style.display = "none";
             },
             navTap: function() {
-                var width = window.innerWidth;
-                if(width <= 650) this.hideNav();
+                if(window.innerWidth <= 650) this.hideNav();
             },
             redraw: function() {
-                var width = window.innerWidth;
-                if(width > 650) {
+                if(window.innerWidth > 650) {
                     this.showNav();
                 } else {
                     this.hideNav();
