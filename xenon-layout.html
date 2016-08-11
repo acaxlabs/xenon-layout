@@ -11,10 +11,12 @@
             #head { z-index: 10; background-color:darkslateblue; color:white; flex: 0 0 72px; display:flex; align-items:center; padding-left: 12px; padding-right:12px;} 
             #foot { z-index: 10; background-color:gainsboro; color:dimgrey; padding-left:12px; padding-right:12px; }
             #titletext { flex: 1 1 auto; margin-left:8px; }
+            #menuicon { display:none; }
 
             @media only screen and (max-width: 650px) {
                 #scrim { width:100%; }
                 #wrapper { margin-left: 0px; }
+                #menuicon { display:block; }
             }
         </style>
         <div id="scrim" on-tap="navTap">
@@ -24,7 +26,7 @@
         </div>
         <div id="wrapper">
             <div id="head">
-                <iron-icon icon="menu" on-tap="showNav"></iron-icon>
+                <iron-icon id="menuicon" icon="menu" on-tap="showNav"></iron-icon>
                 <div id="titletext">{{titleText}}</div>
                 <content select="header"></content>
             </div>
