@@ -1,6 +1,32 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="../iron-icon/iron-icon.html"/>
 <link rel="import" href="../iron-icons/iron-icons.html"/>
+<!--
+
+`<xenon-layout>` provides simple responsive page layout. Use the special children elements 
+`<header>`, `<nav>`, `<main>`, and `<footer>` to layout the page. Inside the nav element, the 
+`<nav-item>` element can be used to make navigation links. 
+
+Example:
+
+    <xenon-layout title-text="This Is A Test">
+        <header><iron-icon icon="add-circle"></iron-icon></header>
+        <nav>
+            <div id="navhead"></div>
+            <nav-item href="#whatup">
+                <iron-icon icon="forward"></iron-icon>
+                Nav Item Go Forward
+            </nav-item>
+        </nav>
+        <main>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        </main>
+        <footer style="text-align:right">hello footer</footer>
+    </xenon-layout>
+	
+@group Xenon Elements
+@element xenon-layout
+-->
 <dom-module id="xenon-layout">
     <template>
         <style>
@@ -19,7 +45,7 @@
                 #menuicon { display:block; }
             }
         </style>
-        <div id="scrim" on-tap="navTap">
+        <div id="scrim" on-tap="_navTap">
             <div id="nav">
                 <content select="nav"></content>
             </div>
@@ -42,28 +68,32 @@
         Polymer({
             is: "xenon-layout", 
             properties: {
+				/* Sets the title text in the action bar in the header. */
                 titleText: String
             },
             ready: function() {
                 this.listen(window, "resize", "redraw");
                 this.redraw();
             },
+			/* Show the left nav when in mobile mode. */
             showNav: function() {
                 this.$.scrim.style.display = "block";
             }, 
+			/* Show the left nav when in mobile mode. */
             hideNav: function() {
                 this.$.scrim.style.display = "none";
             },
-            navTap: function() {
-                if(window.innerWidth <= 650) this.hideNav();
-            },
-            redraw: function() {
+			/* Method to repaint the navigation and detect mobile or desktop layout. */
+			redraw: function() {
                 if(window.innerWidth > 650) {
                     this.showNav();
                 } else {
                     this.hideNav();
                 }
-                
+            },
+			/* Private method to trigger hiding the nav when the scrim is tapped. */
+            _navTap: function() {
+                if(window.innerWidth <= 650) this.hideNav();
             }
         });
     </script>
