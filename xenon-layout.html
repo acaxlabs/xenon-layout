@@ -46,16 +46,20 @@
                 this.listen(window, "resize", "redraw");
                 this.redraw();
             },
+            /* show the left nav when it's collapsed */
             showNav: function() {
                 this.$.scrim.style.display = "block";
             }, 
+            /* hide the left nav when it's shown if screen is small */
             hideNav: function() {
                 this.$.scrim.style.display = "none";
             },
+            /* when a nav item is tapped */
             navTap: function() {
                 var width = window.innerWidth;
                 if(width <= 650) this.hideNav();
             },
+            /* redraw when necessary */
             redraw: function() {
                 var width = window.innerWidth;
                 if(width > 650) {
