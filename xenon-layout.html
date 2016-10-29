@@ -1,6 +1,32 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="../iron-icon/iron-icon.html"/>
 <link rel="import" href="../iron-icons/iron-icons.html"/>
+<!--
+
+`<xenon-layout>` provides simple responsive page layout. Use the special children elements 
+`<header>`, `<nav>`, `<main>`, and `<footer>` to layout the page. Inside the nav element, the 
+`<nav-item>` element can be used to make navigation links. 
+
+Example:
+
+    <xenon-layout title-text="This Is A Test">
+        <header><iron-icon icon="add-circle"></iron-icon></header>
+        <nav>
+            <div id="navhead"></div>
+            <nav-item href="#whatup">
+                <iron-icon icon="forward"></iron-icon>
+                Nav Item Go Forward
+            </nav-item>
+        </nav>
+        <main>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        </main>
+        <footer style="text-align:right">hello footer</footer>
+    </xenon-layout>
+	
+@group Xenon Elements
+@element xenon-layout
+-->
 <dom-module id="xenon-layout">
     <template>
         <style>
@@ -9,22 +35,25 @@
             #scrim { z-index: 20; position:absolute; height:100%; width:250px; background-color: rgba(0,0,0,0.2); }
             #nav { width: 250px; background-color:gainsboro; height:100%; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
             #head { z-index: 10; background-color:darkslateblue; color:white; flex: 0 0 72px; display:flex; align-items:center; padding-left: 12px; padding-right:12px;} 
-            #foot { z-index: 10; background-color:gainsboro; }
+            #foot { z-index: 10; background-color:gainsboro; color:dimgrey; padding-left:12px; padding-right:12px; }
             #titletext { flex: 1 1 auto; margin-left:8px; }
+            #menuicon { display:none; }
 
             @media only screen and (max-width: 650px) {
                 #scrim { width:100%; }
                 #wrapper { margin-left: 0px; }
+                #menuicon { display:block; }
             }
+            
         </style>
-        <div id="scrim" on-tap="navTap">
+        <div id="scrim" on-tap="_navTap">
             <div id="nav">
                 <content select="nav"></content>
             </div>
         </div>
         <div id="wrapper">
             <div id="head">
-                <iron-icon icon="menu" on-tap="showNav"></iron-icon>
+                <iron-icon id="menuicon" icon="menu" on-tap="showNav"></iron-icon>
                 <div id="titletext">{{titleText}}</div>
                 <content select="header"></content>
             </div>
@@ -40,34 +69,32 @@
         Polymer({
             is: "xenon-layout", 
             properties: {
+				/* Sets the title text in the action bar in the header. */
                 titleText: String
             },
             ready: function() {
                 this.listen(window, "resize", "redraw");
                 this.redraw();
             },
-            /* show the left nav when it's collapsed */
+			/* Show the left nav when in mobile mode. */
             showNav: function() {
                 this.$.scrim.style.display = "block";
             }, 
-            /* hide the left nav when it's shown if screen is small */
+			/* Show the left nav when in mobile mode. */
             hideNav: function() {
                 this.$.scrim.style.display = "none";
             },
-            /* when a nav item is tapped */
-            navTap: function() {
-                var width = window.innerWidth;
-                if(width <= 650) this.hideNav();
-            },
-            /* redraw when necessary */
-            redraw: function() {
-                var width = window.innerWidth;
-                if(width > 650) {
+			/* Method to repaint the navigation and detect mobile or desktop layout. */
+			redraw: function() {
+                if(window.innerWidth > 650) {
                     this.showNav();
                 } else {
                     this.hideNav();
                 }
-                
+            },
+			/* Private method to trigger hiding the nav when the scrim is tapped. */
+            _navTap: function() {
+                if(window.innerWidth <= 650) this.hideNav();
             }
         });
     </script>
