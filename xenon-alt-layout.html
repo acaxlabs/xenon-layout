@@ -1,0 +1,68 @@
+<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../iron-icons/iron-icons.html"/>
+<link rel="import" href="../iron-icon/iron-icon.html"/>
+<dom-module id="xenon-alt-layout">
+    <template>
+        <style>
+            #bodywrap { display: flex; flex-direction:column; height:100%; background-color:whitesmoke; }
+            #titletext { flex: 1 1 auto; }
+            #main { padding-left: 260px; display:flex; flex: 1 1 auto; align-items:stretch; overflow-y:scroll }
+            #header { box-sizing: border-box; padding:8px; z-index:100; flex: 0 0 60px; align-items: center; display:flex; background-color:slategray; color:white; align-content:center; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
+            #header > * { padding: 4px; }
+            #body { display:flex; align-items: stretch; justify-content: center; flex: 1 1 auto; }
+            #nav { z-index: 100; position:absolute; top:60px; width: 260px; bottom: 0px; }
+            #content { flex: 1 1 auto; max-width: 1200px; }
+            @media (max-width: 800px) {
+                #main { padding-left: 0px; }
+                #nav { display:none; background-color: whitesmoke; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
+            }
+        </style>
+        <div id="bodywrap">
+            <div id="nav">
+                <content select="nav"></content>
+            </div>
+            <div id="header">
+                <iron-icon id="icon" icon="menu" on-click="toggleNav"></iron-icon>
+                <div id="titletext">{{titleText}}</div>
+                <content select="header"></content>
+            </div>
+            <div id="main">
+                <div id="body">
+                    <div id="content"><content select="main"></content></div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
+    Polymer({
+        is:"xenon-alt-layout", 
+        properties: {
+            titleText: String
+        },
+        ready: function() {
+            this.listen(window, "resize", "redraw");
+            this.redraw();
+        },
+        /* Show the left nav when in mobile mode. */
+        showNav: function() {
+            this.$.nav.style.display = "block";
+        }, 
+        /* Show the left nav when in mobile mode. */
+        hideNav: function() {
+            this.$.nav.style.display = "none";
+        },
+        /* Method to repaint the navigation and detect mobile or desktop layout. */
+        redraw: function() {
+            if(window.innerWidth > 800) {
+                this.showNav();
+            } else {
+                this.hideNav();
+            }
+        },
+        /* Private method to trigger hiding the nav when the scrim is tapped. */
+        toggleNav: function() {
+            this.$.nav.style.display = this.$.nav.style.display == "block" && window.innerWidth < 800 ? "none" : "block";
+        }
+    });
+    </script>
+</dom-module>
