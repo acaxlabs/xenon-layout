@@ -6,13 +6,13 @@
         <style>
             #bodywrap { display: flex; flex-direction:column; height:100%; background-color:whitesmoke; }
             #titletext { flex: 1 1 auto; }
-            #main { padding-left: 260px; display:flex; flex: 1 1 auto; align-items:stretch; overflow-y:scroll }
-            #header { box-sizing: border-box; padding:8px; z-index:100; flex: 0 0 60px; align-items: center; display:flex; background-color:slategray; color:white; align-content:center; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
+            #main { padding-left: 250px; display:flex; flex: 1 1 auto; align-items:stretch; overflow-y:scroll }
+            #header { background-color: var(--xenon-layout-background-color, slategray); color: var(--xenon-layout-color, white); box-sizing: border-box; padding:8px; z-index:100; flex: 0 0 60px; align-items: center; display:flex; align-content:center; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
             #header > * { padding: 4px; }
             #body { display:flex; align-items: stretch; justify-content: center; flex: 1 1 auto; }
-            #nav { z-index: 100; position:absolute; top:60px; width: 260px; bottom: 0px; }
+            #nav { z-index: 100; position:absolute; top:60px; width: 250px; bottom: 0px; }
             #content { flex: 1 1 auto; max-width: 1200px; }
-            @media (max-width: 800px) {
+            @media (max-width: 650px) {
                 #main { padding-left: 0px; }
                 #nav { display:none; background-color: whitesmoke; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
             }
@@ -56,15 +56,17 @@
         },
         /* Method to repaint the navigation and detect mobile or desktop layout. */
         redraw: function() {
-            if(window.innerWidth > 800) {
+            if(window.innerWidth > 650) {
                 this.showNav();
+                this.$.icon.style.display = "none";
             } else {
                 this.hideNav();
+                this.$.icon.style.display = "block";
             }
         },
         /* Private method to trigger hiding the nav when the scrim is tapped. */
         toggleNav: function() {
-            this.$.nav.style.display = this.$.nav.style.display == "block" && window.innerWidth < 800 ? "none" : "block";
+            this.$.nav.style.display = this.$.nav.style.display == "block" && window.innerWidth < 650 ? "none" : "block";
         }
     });
     </script>
