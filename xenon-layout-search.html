@@ -18,11 +18,14 @@
     <script>
     Polymer({
         is:"xenon-layout-search",
+        properties: {
+            shortcutEnabled: { type: Boolean, value: true }
+        },
         ready: function() {
             this.listen(document, "keydown", "_winkey");
         },
         _winkey: function(e) {
-            if(e.ctrlKey == true && e.code == "KeyS") {
+            if(e.ctrlKey == true && e.code == "KeyF" && this.shortcutEnabled) {
                 this._toggle();
             }
         },
