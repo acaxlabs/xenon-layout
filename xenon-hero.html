@@ -1,0 +1,20 @@
+<link rel="import" href="../polymer/polymer.html"/>
+<dom-module id="xenon-hero">
+    <template>
+        <style>
+            #hero { height: 90%; width: 100%; background-size:cover; background-position: center; }
+        </style>
+        <div id="hero"><content></content></div>
+    </template>
+    <script>
+    Polymer({
+        is:"xenon-hero", 
+        properties: {
+            src: { type:String, observer: "setSrc" }
+        },
+        setSrc: function(value) {
+            this.$.hero.style.backgroundImage = "url('" + value + "')";
+        }
+    });
+    </script>
+</dom-module>
