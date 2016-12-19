@@ -6,6 +6,7 @@
         <style>
             #searchbox { margin: 0px; transition: width 0.5s; width: 320px; animation: slidein 1s; height: 30px; padding: 0px 8px 0px 8px; font-size: 10pt; background-color: rgba(255,255,255,0.2); border: none; border-radius: 4px; color: white; }
             #searchbox:focus { outline:none; }
+            #searchbox::-webkit-input-placeholder { color: lightgray; }
             @keyframes slidein {
                 from { width: 0px; opacity:0 }
                 to { width: 320px; opacity:1 }
@@ -17,8 +18,16 @@
     <script>
     Polymer({
         is:"xenon-layout-search",
+        ready: function() {
+            this.listen(document, "keydown", "_winkey");
+        },
+        _winkey: function(e) {
+            if(e.ctrlKey == true && e.code == "KeyS") {
+                this._toggle();
+            }
+        },
         _key: function(e) {
-            if(e.keyCode == 13) {
+            if(e.code == "Enter") {
                 this.fire("xenon-layout.search", this.$.searchbox.value);
                 this.$.searchbox.value = "";
             }
