@@ -39,8 +39,7 @@ Example:
             #body { display:flex; align-items: stretch; justify-content: center; flex: 1 1 auto; }
             #nav { z-index: 100; position:absolute; top:60px; width:250px; bottom: 0px; background-color:whitesmoke }
             :host ::content nav { height:100% }
-            #content { flex: 1 1 auto; }
-            :host ::content main { margin:auto; }
+            :host ::content main * { margin:auto; }
         </style> 
         <div id="nav">
             <content select="nav"></content>
