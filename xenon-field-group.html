@@ -1,0 +1,15 @@
+<link rel="import" href="../polymer/polymer.html"/>
+<dom-module id="xenon-field-group">
+    <template>
+        <style>
+            #group { display:flex; flex-wrap:wrap; }
+            #group ::content > * { width:308px; margin:4px; }
+        </style>
+        <div id="group"><content></content><div>
+    </template>
+    <script>
+    Polymer({
+        is:"xenon-field-group"
+    });
+    </script>
+</dom-module>

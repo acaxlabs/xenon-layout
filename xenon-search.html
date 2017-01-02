@@ -1,15 +1,15 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="../iron-icons/iron-icons.html"/>
 <link rel="import" href="../iron-icon/iron-icon.html"/>
-<dom-module id="xenon-layout-search">
+<dom-module id="xenon-search">
     <template>
         <style>
-            #searchbox { margin: 0px; transition: width 0.5s; width: 320px; animation: slidein 1s; height: 30px; padding: 0px 8px 0px 8px; font-size: 10pt; background-color: rgba(255,255,255,0.2); border: none; border-radius: 4px; color: white; }
+            #searchbox { margin: 0px; transition: width 0.5s; width: 200px; animation: slidein 1s; height: 30px; padding: 0px 8px 0px 8px; font-size: 10pt; background-color: rgba(255,255,255,0.2); border: none; border-radius: 4px; color: white; }
             #searchbox:focus { outline:none; }
             #searchbox::-webkit-input-placeholder { color: lightgray; }
             @keyframes slidein {
                 from { width: 0px; opacity:0 }
-                to { width: 320px; opacity:1 }
+                to { width: 200px; opacity:1 }
             }
         </style>
         <input id="searchbox" placeholder="search" hidden on-keypress="_key"></input>
@@ -17,7 +17,7 @@
     </template>
     <script>
     Polymer({
-        is:"xenon-layout-search",
+        is:"xenon-search",
         properties: {
             shortcutEnabled: { type: Boolean, value: true }
         },

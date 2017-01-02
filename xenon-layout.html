@@ -1,24 +1,25 @@
 <link rel="import" href="../polymer/polymer.html"/>
-<link rel="import" href="../iron-icon/iron-icon.html"/>
 <link rel="import" href="../iron-icons/iron-icons.html"/>
+<link rel="import" href="../iron-icon/iron-icon.html"/>
 <!--
-
 `<xenon-layout>` provides simple responsive page layout. Use the special children elements 
 `<header>`, `<nav>`, `<main>`, and `<footer>` to layout the page. Inside the nav element, the 
 `<nav-item>` element can be used to make navigation links. 
 
 Example:
-
+    <style is="custom-style">
+        :root { --xenon-layout-background-color:purple; --xenon-layout-color:white; }
+    </style>
     <xenon-layout title-text="This Is A Test">
         <header><iron-icon icon="add-circle"></iron-icon></header>
-        <nav>
-            <div id="navhead"></div>
-            <nav-item href="#whatup">
-                <iron-icon icon="forward"></iron-icon>
-                Nav Item Go Forward
-            </nav-item>
+        <nav style="display:flex; flex-direction:column;">
+            <nav-item icon="settings">Menu Item One</nav-item>    
+            <nav-item icon="add">Menu Item Two</nav-item>    
+            <nav-item icon="cancel">Menu Item Three</nav-item>  
+            <div style="flex: 1 1 auto"></div>
+            <div style="align-self:center;">bottom logo here</div>  
         </nav>
-        <main>
+        <main style="max-width:1200px;">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
         </main>
         <footer style="text-align:right">hello footer</footer>
@@ -30,35 +31,27 @@ Example:
 <dom-module id="xenon-layout">
     <template>
         <style>
-            #mainwrap { height:100%; display:flex; flex-direction: column; margin-left:250px;}
-            #main { z-index: 0; flex: 1 1 auto; overflow-y:scroll; background-color:whitesmoke; }
-            #scrim { z-index: 20; position:absolute; height:100%; width:250px; background-color: rgba(0,0,0,0.2); }
-            #nav { width: 250px; background-color:gainsboro; height:100%; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
-            #head { z-index: 10; background-color:darkslateblue; color:white; flex: 0 0 72px; display:flex; align-items:center; padding-left: 12px; padding-right:12px;} 
-            #foot { z-index: 10; background-color:gainsboro; color:dimgrey; padding-left:12px; padding-right:12px; }
-            #titletext { flex: 1 1 auto; margin-left:8px; }
-            #menuicon { display:none; }
-
-            @media only screen and (max-width: 650px) {
-                #scrim { width:100%; }
-                #mainwrap { margin-left: 0px; }
-                #menuicon { display:block; }
-            }
-
-        </style>
-        <div id="scrim" on-tap="_navTap">
-            <div id="nav">
-                <content select="nav"></content>
-            </div>
+            #bodywrap { display: flex; flex-direction:column; height:100%; background-color:whitesmoke; }
+            #heading { flex: 1 1 auto; }
+            #main { padding-left: 250px; flex: 1 1 auto; overflow-y:scroll }
+            #header { background-color: var(--xenon-layout-background-color,slategray); color: var(--xenon-layout-color, white); box-sizing: border-box; padding:0px 8px 0px 8px; z-index:100; flex: 0 0 60px; align-items: center; display:flex; justify-content:center; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5); }
+            #header > * { padding: 4px; }
+            #nav { z-index: 100; position:absolute; top:60px; width:250px; bottom: 0px; background-color:whitesmoke }
+            #nav ::content spacer { flex: 1 1 auto; }
+            :host ::content nav { height:100%; display:flex; flex-direction:column;  }
+            :host ::content main > * { margin:auto; }
+        </style> 
+        <div id="nav">
+            <content select="nav"></content>
         </div>
-        <div id="mainwrap">
-            <div id="head">
-                <iron-icon id="menuicon" icon="menu" on-tap="showNav"></iron-icon>
-                <div id="titletext">{{titleText}}</div>
+        <div id="bodywrap">
+            <div id="header">
+                <iron-icon id="icon" icon="menu" on-click="toggleNav"></iron-icon>
+                <div id="heading">{{heading}}</div>
                 <content select="header"></content>
             </div>
             <div id="main">
-                <content select="main"></content>
+                <div id="content"><content select="main"></content></div>
             </div>
             <div id="foot">
                 <content select="footer"></content>
@@ -66,36 +59,59 @@ Example:
         </div>
     </template>
     <script>
-        Polymer({
-            is: "xenon-layout", 
-            properties: {
-				/* Sets the title text in the action bar in the header. */
-                titleText: String
-            },
-            ready: function() {
-                this.listen(window, "resize", "redraw");
-                this.redraw();
-            },
-			/* Show the left nav when in mobile mode. */
-            showNav: function() {
-                this.$.scrim.style.display = "block";
-            }, 
-			/* Show the left nav when in mobile mode. */
-            hideNav: function() {
-                this.$.scrim.style.display = "none";
-            },
-			/* Method to repaint the navigation and detect mobile or desktop layout. */
-			redraw: function() {
-                if(window.innerWidth > 650) {
-                    this.showNav();
-                } else {
-                    this.hideNav();
-                }
-            },
-			/* Private method to trigger hiding the nav when the scrim is tapped. */
-            _navTap: function() {
-                if(window.innerWidth <= 650) this.hideNav();
+    Polymer({
+        is:"xenon-layout", 
+        properties: {
+            /* Text to include in the title bar of the app */
+            heading: String, 
+
+            /* Keep the nav floating instead of always visible */
+            floatNav: { type: Boolean, value: false }
+        },
+        listeners: {
+            "xenon-layout-navigate":"toggleNav"
+        },
+        ready: function() {
+            this.listen(window, "resize", "redraw");
+            this.redraw();
+        },
+        /* Show the left nav when in mobile mode. */
+        showNav: function() {
+            this.$.nav.style.display = "block";
+        }, 
+        /* Show the left nav when in mobile mode. */
+        hideNav: function() {
+            this.$.nav.style.display = "none";
+        },
+        /* Private method to trigger hiding the nav */
+        toggleNav: function() {
+            if(this.$.nav.style.display == "block" && (window.innerWidth < 650 || this.floatNav)) {
+                this.hideNav();
+            } else {
+                this.showNav();
             }
-        });
+        },
+        /* Method to repaint the navigation and detect mobile or desktop layout. */
+        redraw: function() {
+            if(this.floatNav) {
+                this.$.icon.style.display = "block";
+                this.$.nav.style.boxShadow = "0px 0px 4px rgba(0, 0, 0, 0.5)";
+                this.$.main.style.paddingLeft = "0px";
+                this.hideNav();
+            } else {
+                if(window.innerWidth < 650) {
+                    this.$.icon.style.display = "block";
+                    this.$.nav.style.boxShadow = "0px 0px 4px rgba(0, 0, 0, 0.5)";
+                    this.$.main.style.paddingLeft = "0px";
+                    this.hideNav();
+                } else {
+                    this.$.icon.style.display = "none";
+                    this.$.nav.style.boxShadow = "none";
+                    this.$.main.style.paddingLeft = "250px";
+                    this.showNav();
+                }
+            }
+        }
+    });
     </script>
 </dom-module>

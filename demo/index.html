@@ -1,55 +1,125 @@
 <html>
     <head>
-        <script src="../../webcomponentsjs/webcomponents.js"></script>
-        <link rel="import" href="../xenon-layout.html"/>
-        <link rel="import" href="../../iron-icon/iron-icon.html"/>
-        <link rel="import" href="../../iron-icons/iron-icons.html"/>
-        <link rel="import" href="../nav-item.html"/>
-        <style>
-            html, body { margin: 0px; }
-            #navhead { background-image: url("matbackblue.png"); background-size: cover; height:150px; }
-            nav { padding: 0px !important; }
+        <style is="custom-style">
+            :root { --xenon-layout-background-color:#3e5b43; --primary-color:#3e5b43 }
+            .primary { background-color:var(--primary-color); color:white; }
+            body { margin: 0px; font-family: "Roboto", Arial, Helvetica, sans-serif }
         </style>
+        <script src="../../webcomponentsjs/webcomponents.js"></script>
+        <link rel="import" href="../../polymer/polymer.html"/>
+        <link rel="import" href="../../iron-icons/iron-icons.html"/>
+        <link rel="import" href="../../iron-icon/iron-icon.html"/>
+        <link rel="import" href="../nav-item.html"/>
+        <link rel="import" href="../xenon-search.html"/>
+        <link rel="import" href="../xenon-section.html"/>
+        <link rel="import" href="../xenon-field-group.html"/>
+        <link rel="import" href="../xenon-layout.html"/>
+        <link rel="import" href="../../xenon-photo-card/xenon-photo-card.html"/>
+        <link rel="import" href="../../paper-button/paper-button.html"/>
+        <link rel="import" href="../../paper-menu-button/paper-menu-button.html"/>
+        <link rel="import" href="../../paper-item/paper-item.html"/>
+        <link rel="import" href="../../paper-icon-button/paper-icon-button.html"/>
+        <link rel="import" href="../../paper-input/paper-input.html"/>
     </head>
     <body>
-        <xenon-layout title-text="This Is A Test">
-            <header><iron-icon icon="add-circle"></iron-icon></header>
-            <nav>
-                <div id="navhead"></div>
-                <nav-item href="#whatup"><iron-icon icon="forward"></iron-icon>Holy Nav</nav-item>
-            </nav>
-            <main>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a tortor tortor. Ut vel lorem vestibulum, efficitur eros vel, congue nulla. Proin bibendum, mi vitae pretium placerat, arcu augue gravida tellus, interdum consectetur libero tellus eget neque. Duis a vestibulum tellus. Vivamus nec nisi feugiat, interdum justo vitae, dignissim leo. Donec eu libero quis ipsum pretium porta eget at quam. Donec viverra vitae tortor auctor auctor. Nam consectetur mauris turpis. Duis sed facilisis lorem. Nullam cursus consequat cursus. Sed ac est id nibh ornare molestie ut et purus.
-
-                Sed aliquam urna vel ex eleifend suscipit. Praesent ut diam dignissim, bibendum nibh eu, sodales purus. Fusce tempus blandit pulvinar. Donec ultricies vestibulum sem. Pellentesque id ullamcorper turpis. Mauris rhoncus rutrum venenatis. Maecenas ultrices tempus magna id auctor.
-
-                Pellentesque in turpis vitae nisi aliquet fermentum at ut odio. Etiam molestie eleifend purus, tempor molestie nibh feugiat eu. Fusce consectetur ut odio vitae auctor. Maecenas sit amet mattis lorem. Aliquam erat volutpat. Etiam sed hendrerit nunc. Curabitur commodo vulputate consequat. Duis ac purus a purus pulvinar pharetra aliquet in nibh.
-
-                Pellentesque congue erat quis ex bibendum vestibulum. Sed interdum dignissim dolor, non tempor dui imperdiet non. Mauris et dictum augue, ac fermentum libero. Nullam tellus velit, gravida ut tempor a, hendrerit sit amet mauris. Nunc ut varius diam. Curabitur nisi justo, eleifend nec placerat vel, facilisis eu diam. Phasellus et lorem iaculis tellus blandit efficitur. Quisque vehicula porttitor libero, at mollis orci aliquam vitae. Etiam commodo purus id risus venenatis, sed ornare massa lacinia. Nullam ultrices mauris id leo dignissim, at mollis urna lacinia. Curabitur ac lacus ante. Donec convallis orci sit amet volutpat sagittis. Pellentesque lobortis neque ex, a condimentum magna congue id. Nulla id massa sed sem sodales porttitor.
-
-                Donec velit ante, sollicitudin vel gravida vel, tincidunt facilisis tellus. In iaculis magna nec odio egestas sagittis. Vivamus tincidunt consectetur elit, ultricies venenatis dolor vestibulum ac. Fusce quis dolor tincidunt, pharetra dui in, pharetra lacus. Sed lectus erat, pulvinar sed luctus et, egestas vitae tortor. Maecenas efficitur leo a est vehicula auctor. Duis vehicula tortor ac odio efficitur, at rutrum dolor molestie. Aliquam tempus neque luctus, elementum arcu vel, cursus mauris. Integer molestie mattis ex et blandit. Cras luctus, ipsum aliquam aliquam porttitor, erat leo commodo enim, vitae hendrerit tellus neque ut tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan massa eget gravida varius. Morbi sed sem euismod diam convallis pretium tristique et nunc.
-
-                Mauris molestie velit bibendum fringilla sollicitudin. In velit lorem, vestibulum sed ipsum eget, ultrices fermentum nisi. Suspendisse arcu enim, vehicula sit amet nulla sed, convallis maximus dolor. Morbi nec pellentesque mauris, id imperdiet diam. Pellentesque mollis dui non pellentesque facilisis. Etiam ultrices facilisis arcu sed tempus. Cras diam nisi, euismod sed justo vitae, pharetra scelerisque nisi. Nam imperdiet turpis sed orci egestas euismod et vitae massa. Phasellus non enim sit amet arcu fringilla tincidunt. Nam a erat vitae felis porta scelerisque quis sit amet urna. Sed sit amet elit sagittis, commodo tortor et, vulputate metus. Nam est ex, accumsan ut commodo in, vehicula at mauris. Curabitur massa nibh, euismod eget lacus ut, vulputate tincidunt velit. Cras semper, felis eget tempus imperdiet, nisl erat malesuada odio, sit amet mattis urna massa in mauris.
-
-                In posuere eu est et maximus. Nam bibendum semper lectus vitae semper. Integer condimentum dignissim sagittis. Ut nunc erat, egestas eu pretium eu, dignissim a libero. Etiam vitae purus facilisis, fermentum nisi at, euismod lectus. Vestibulum blandit diam consectetur lectus interdum, vel tincidunt ligula imperdiet. Mauris dignissim quis dui vel vestibulum. Curabitur eget imperdiet felis, et blandit risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sed enim a arcu malesuada porttitor. Fusce tincidunt nibh mauris, at aliquam felis tempus eu. Aenean congue, elit ut fermentum dignissim, turpis mi efficitur orci, eget accumsan dui dui eu urna. Cras finibus risus nisi, nec fringilla nisl consectetur fermentum. In sagittis ligula in dui scelerisque, in imperdiet elit maximus. Phasellus id pellentesque purus. Phasellus feugiat euismod sapien eu aliquam.
-
-                Cras cursus lorem at ante vestibulum, nec gravida neque ultricies. Nullam eros dolor, posuere vitae lectus in, accumsan tincidunt nibh. Donec id urna condimentum, interdum sapien nec, iaculis lorem. Suspendisse malesuada feugiat augue, non pulvinar purus scelerisque eu. Vivamus faucibus enim sed aliquam vestibulum. Proin nec purus maximus, viverra lacus non, tristique ipsum. Pellentesque a massa viverra, maximus nibh ac, interdum nulla. Donec tristique id metus nec tempor. Donec ut cursus eros, a dignissim sapien. Morbi eu est lobortis, congue erat ac, tempor orci. Pellentesque at feugiat nulla. Etiam leo mauris, luctus ultrices orci in, placerat lacinia ex. Sed scelerisque, dolor sollicitudin molestie commodo, lacus libero tincidunt mauris, fringilla auctor ligula dolor sit amet leo. Cras mi augue, porttitor in sodales et, lobortis eu metus.
-
-                Aliquam venenatis est ac venenatis bibendum. Duis et pretium augue. Duis et nibh nunc. Suspendisse potenti. Pellentesque sed massa eu metus scelerisque vulputate eu ut eros. Donec magna sapien, fermentum ut mollis posuere, cursus sed tellus. Morbi sit amet dignissim sem. Proin quis condimentum purus, quis vestibulum ligula. Etiam gravida vitae dui viverra tempus. Aliquam erat volutpat.
-
-                Donec quis metus ex. Nullam vel enim orci. Aenean laoreet scelerisque ultrices. Nam venenatis nisl hendrerit nulla varius, sed ultricies metus ultrices. Sed aliquam elementum metus, id pellentesque nisi malesuada ut. Etiam commodo tellus eu hendrerit volutpat. Mauris pharetra, orci vel pharetra mattis, velit sapien scelerisque nisl, placerat tempor nisi velit nec orci. Interdum et malesuada fames ac ante ipsum primis in faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque mattis justo non enim feugiat aliquet. Vestibulum condimentum, elit et auctor ornare, quam felis lacinia velit, vel rutrum neque purus eu lectus. Donec pretium tellus tempus fermentum pellentesque.
-
-                Pellentesque venenatis tincidunt ligula, sed tempus mauris finibus sit amet. Vestibulum hendrerit, lacus quis porta scelerisque, nisl mauris gravida urna, at vehicula nisi odio quis tortor. Sed eu faucibus lectus. Vestibulum viverra luctus diam quis porttitor. Mauris ipsum sem, tempor in feugiat in, ullamcorper eu mi. Etiam eget semper dui, a sagittis enim. Morbi eget dictum nibh, eget consectetur lorem. Aenean mi dolor, posuere eget tempor maximus, consequat id enim. Proin bibendum eros ex, non accumsan mauris mollis posuere. Donec egestas luctus eros, eget tristique urna.
-
-                Aliquam quis leo at risus efficitur suscipit eu eu lectus. Praesent vulputate vulputate mi, ut volutpat augue dictum a. Nullam eros orci, suscipit vitae maximus a, posuere sed justo. Proin blandit ligula sem, quis pharetra lacus vestibulum mollis. Vivamus feugiat ultricies libero vitae luctus. Maecenas risus ex, efficitur eget urna auctor, tincidunt pretium nisl. Proin quis cursus turpis. Fusce volutpat consequat tellus at convallis. Duis et volutpat ligula. Vestibulum accumsan ipsum orci, a sodales metus tempus sed. Nunc auctor maximus ligula, tempor lacinia augue. Mauris facilisis erat eget erat sodales cursus.
-
-                Duis non risus euismod, venenatis velit et, molestie est. Donec ac ipsum at libero iaculis congue nec id orci. Nullam tempor lacus et urna dapibus, sed iaculis nibh mattis. Fusce finibus est a porttitor condimentum. Aliquam viverra efficitur odio, ac dictum sapien faucibus id. Nullam fermentum massa fringilla massa accumsan rutrum. Sed tempor aliquet metus, et auctor leo sodales vitae.
-
-                Ut sagittis velit tellus, nec consectetur eros imperdiet sed. Nulla posuere pulvinar luctus. Fusce massa nunc, facilisis sed pellentesque quis, tincidunt in risus. Nulla id est sed nibh ultricies molestie. Morbi id dignissim ipsum, convallis porttitor dui. Curabitur quis porta purus. Morbi tempor ut lectus at ornare. Morbi arcu mauris, pulvinar in ligula sed, sagittis interdum mauris. Proin id elit in libero vulputate suscipit non sit amet metus. Sed id est in quam tincidunt congue sit amet a urna. Integer rhoncus nisi ut risus dictum consequat. Maecenas ultricies dui in metus vulputate, eu suscipit erat luctus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed non libero at leo porttitor sollicitudin quis vel nibh. Nam gravida facilisis nunc vel bibendum.
-
-                Fusce at enim ligula. Pellentesque risus quam, sollicitudin et tristique quis, imperdiet eu ex. Cras tristique fringilla purus, vel gravida nibh. Curabitur tincidunt risus ut orci auctor, ac condimentum diam rhoncus. Maecenas sed dui cursus lectus blandit pellentesque. Mauris erat elit, dictum sed tortor at, ullamcorper ornare dui. Curabitur molestie a urna eu iaculis. Maecenas metus risus, interdum tincidunt facilisis sollicitudin, lacinia sit amet augue. Curabitur efficitur efficitur bibendum. Sed ornare dapibus pharetra. Cras lacus turpis, finibus ut elit nec, sodales fringilla nunc. Fusce dui urna, congue vel malesuada eget, condimentum ac est. Nulla facilisis suscipit tellus, vel pretium velit condimentum eu. Vivamus iaculis, tellus sit amet elementum tempor, sapien nulla dignissim quam, et eleifend mi est ut diam. Mauris tristique finibus est, nec tempus risus finibus sit amet.
-            </main>
-            <footer style="text-align:right">hello footer</footer>
-        </xenon-layout>
+        <dom-module id="demo-element">
+            <template>
+                <xenon-layout heading="Zen Products" float-nav>
+                    <header>
+                        <xenon-search></xenon-search>
+                    </header>
+                    <nav>
+                        <nav-item icon="settings" href="#products">Products</nav-item>    
+                        <nav-item icon="add">Menu Item Two</nav-item>    
+                        <nav-item icon="cancel">Menu Item Three</nav-item>  
+                        <spacer></spacer>
+                        <img style="align-self:center;" src="zenlogo.png"/>
+                    </nav>
+                    <main>
+                        <xenon-section src="chuck.jpg" style="height:95%; color:white;">
+                            <div></div>
+                            <h1 style="padding:24px;">An intellectual says a simple thing in a hard way. An artist says a hard thing in a simple way.</h1>
+                        </xenon-section>
+                        <xenon-section id="products">
+                            <xenon-photo-card primary-title="Interesting Info" sub-title="This card has a subhead." src="http://lorempixel.com/600/400/sports/">
+                                <main>Now is the time for all good men to come to the aid of their country.</main>
+                                <actions>
+                                    <spacer></spacer>
+                                    <paper-button class="primary">Primary Action</paper-button>
+                                </actions>
+                            </xenon-photo-card>
+                            <xenon-photo-card primary-title="Dazzling Details" sub-title="This card has a subhead." src="http://lorempixel.com/600/400/abstract/">
+                                <main>Now is the time for all good men to come to the aid of their country.</main>
+                                <actions>
+                                    <spacer></spacer>
+                                    <paper-button class="primary">Primary Action</paper-button>
+                                </actions>
+                            </xenon-photo-card>
+                            <xenon-photo-card primary-title="Eye Catcher" sub-title="This card has a subhead." src="http://lorempixel.com/600/400/business/">
+                                <main>Now is the time for all good men to come to the aid of their country.</main>
+                                <actions>
+                                    <spacer></spacer>
+                                    <paper-button class="primary">Primary Action</paper-button>
+                                </actions>
+                            </xenon-photo-card>
+                        </xenon-section>
+                        <xenon-section>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse facilisis ex velit, ut efficitur ipsum auctor quis. Nam vitae urna vitae diam iaculis tempor sit amet et est. Sed ut ligula diam. Vivamus a diam posuere, viverra metus quis, luctus tortor. Nam sagittis vehicula lacus eu aliquam. Mauris eu pharetra mi, in consectetur mi. Nulla ut sapien porta, pulvinar mauris vel, fringilla nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                            </p>
+                        </xenon-section>
+                        <xenon-section>
+                            <xenon-photo-card primary-title="Example Form">
+                                <main>
+                                    <xenon-field-group>
+                                        <paper-input label="First Name"></paper-input>
+                                        <paper-input label="Last Name"></paper-input>
+                                        <paper-input label="Address"></paper-input>
+                                        <paper-input label="City"></paper-input>
+                                        <paper-input label="Zip"></paper-input>
+                                        <paper-input label="Country"></paper-input>
+                                        <paper-input label="Phone"></paper-input>
+                                        <paper-input label="Email"></paper-input>
+                                    </xenon-field-group>
+                                </main>
+                                <actions>
+                                    <spacer></spacer>
+                                    <paper-button class="primary">Primary Action</paper-button>
+                                </actions>
+                            </xenon-photo-card>
+                        </xenon-section>
+                        <xenon-section style="background-color:gainsboro; color:gray">
+                            <ul>
+                                <li>Privacy Policy</li>
+                                <li>User Agreement</li>
+                            </ul>
+                            <ul>
+                                <li>About Us</li>
+                                <li>Employment Opportunities</li>
+                            </ul>
+                            <ul>
+                                <li>Facebook</li>
+                                <li>Twitter</li>
+                                <li>Pintrest</li>
+                            </ul>
+                        </xenon-section>
+                    </main>
+                </xenon-layout>
+            </template>
+            <script>
+            HTMLImports.whenReady( function(){
+                Polymer({
+                    is:"demo-element", 
+                    properties: {
+                        items: { type:Array, value:[] }
+                    }, 
+                    ready: function() {
+                        this.items = [{"lastName":"Archer","firstName":"Don","food":"Pizza","age":"45"},{"lastName":"Archer","firstName":"Alicia","food":"Sushi","age":"33"},{"lastName":"Archer","firstName":"Jezzabelle","food":"What chu got?","age":"10"}];
+                    }
+                });
+            });
+            </script>
+        </dom-module>
+        <demo-element></demo-element>
     </body>
 </html>
