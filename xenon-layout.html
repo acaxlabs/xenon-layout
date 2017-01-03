@@ -70,9 +70,11 @@ Example:
             /* Keep the nav floating instead of always visible */
             floatNav: { type: Boolean, value: false }
         },
+        /* listen for nav clicks from nav-item children */
         listeners: {
             "xenon-layout-navigate":"toggleNav"
         },
+        /* trigger a redraw when the window loads */
         ready: function() {
             this.listen(window, "resize", "redraw");
             this.redraw();
@@ -95,15 +97,16 @@ Example:
         },
         /* Method to repaint the navigation and detect mobile or desktop layout. */
         redraw: function() {
+            var hasNav = Polymer.dom(this).querySelector("nav") != null;
             if(this.floatNav) {
-                this.$.icon.style.display = "block";
+                this.$.icon.style.display = hasNav ? "block" : "none";
                 this.$.nav.style.boxShadow = "0px 0px 4px rgba(0, 0, 0, 0.5)";
                 this.$.main.style.paddingLeft = "0px";
                 this.$.foot.style.paddingLeft = "0px";
                 this.hideNav();
             } else {
                 if(window.innerWidth < 650) {
-                    this.$.icon.style.display = "block";
+                    this.$.icon.style.display = hasNav ? "block" : "none";
                     this.$.nav.style.boxShadow = "0px 0px 4px rgba(0, 0, 0, 0.5)";
                     this.$.main.style.paddingLeft = "0px";
                     this.$.foot.style.paddingLeft = "0px";
