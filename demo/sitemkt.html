@@ -1,8 +1,7 @@
 <html>
     <head>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
         <style is="custom-style">
-            :root { --xenon-layout-background-color:#3e5b43; --primary-color:#3e5b43 }
-            .primary { background-color:var(--primary-color); color:white; }
             body { margin: 0px; font-family: "Roboto", Arial, Helvetica, sans-serif }
         </style>
         <script src="../../webcomponentsjs/webcomponents.js"></script>
@@ -24,6 +23,11 @@
     <body>
         <dom-module id="demo-element">
             <template>
+                <style>
+                    :root { --xenon-heading-theme: { font-weight:300; }; --xenon-subheading-theme: { font-weight:300; } }
+                    :root { --xenon-layout-background-color:ß; --primary-color:#3e5b43 }
+                    .primary { background-color:var(--primary-color); color:white; }
+                </style>
                 <xenon-layout heading="Zen Products" float-nav>
                     <header>
                         <xenon-search></xenon-search>
@@ -31,7 +35,7 @@
                     <main>
                         <xenon-section src="chuck.jpg" style="height:100%; color:white;">
                             <div></div>
-                            <h1 style="padding:24px;">An intellectual says a simple thing in a hard way. An artist says a hard thing in a simple way.</h1>
+                            <h1 style="padding:24px; font-weight:100; ">An intellectual says a simple thing in a hard way. An artist says a hard thing in a simple way.</h1>
                         </xenon-section>
                         <xenon-section id="products">
                             <xenon-photo-card heading="Interesting Info" sub-heading="This card has a subhead." src="http://lorempixel.com/600/400/sports/">
