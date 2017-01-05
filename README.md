@@ -1,6 +1,7 @@
 # xenon-layout
 
-`<xenon-layout>` provides simple responsive page layout. Use the special children elements 
+`<xenon-layout>` is a polymer component that provides a simple responsive page layout following
+Material design [guidelines](https://material.io/guidelines/). Use the special children elements 
 `<header>`, `<nav>`, `<main>`, and `<footer>` to layout the page. Inside the nav element, the 
 `<nav-item>` element can be used to make navigation links. 
 
