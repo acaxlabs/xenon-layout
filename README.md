@@ -5,6 +5,7 @@
 `<nav-item>` element can be used to make navigation links. 
 
 ## Example:
+```html
     <style is="custom-style">
         :root { --xenon-layout-background-color:purple; --xenon-layout-color:white; }
     </style>
@@ -22,3 +23,4 @@
         </main>
         <footer style="text-align:right">hello footer</footer>
     </xenon-layout>
+```
