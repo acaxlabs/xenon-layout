@@ -4,11 +4,12 @@
         <style>
             label { font-size:12px; color:grey; font-family: Roboto, Noto, sans-serif; font-weight:400 }
             .wrap { margin: 12px 0px 8px 0px }
-            .content { margin-top: 4px; }
+            .content { margin-top: 4px; height:1.2em; }
+            .greyout { color:gainsboro; }
         </style>
         <div class="wrap">
             <label>{{label}}</label>
-            <div class="content">
+            <div class="content" id="content">
                 <content></content>
             </div>
         </div>
@@ -18,6 +19,19 @@
         is:"xenon-field",
         properties: {
             label: String
+        },
+        attached: function () {
+            // fetching text content fails before binding, so wait 100ms for this to happen
+            // HACK
+            this.async(this.checkContent, 500);
+        },
+        checkContent: function () {
+            var _nodes = this.getEffectiveChildNodes();
+            if (_nodes == undefined || _nodes.length == 0) return; 
+            if (_nodes[0].textContent == "") {
+                this.$.content.innerText = "none";
+                this.toggleClass("greyout", true, this.$.content);
+            }
         }
     });
     </script>
