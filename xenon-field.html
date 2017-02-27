@@ -23,7 +23,7 @@
         attached: function () {
             // fetching text content fails before binding, so wait 100ms for this to happen
             // HACK
-            this.async(this.checkContent, 500);
+            // this.async(this.checkContent, 500);
         },
         checkContent: function () {
             var _nodes = this.getEffectiveChildNodes();
