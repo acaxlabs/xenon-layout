@@ -3,13 +3,14 @@
     <template>
         <style>
             label { font-size:12px; color:grey; font-family: Roboto, Noto, sans-serif; font-weight:400 }
-            .wrap { margin: 12px 0px 8px 0px }
-            .content { margin-top: 4px; height:1.2em; }
-            .greyout { color:gainsboro; }
+            #wrap { margin: 12px 0px 8px 0px }
+            #empty { color:gainsboro }
+            #content { margin-top: 4px; height:1.2em; }
         </style>
-        <div class="wrap">
+        <div id="wrap">
             <label>{{label}}</label>
-            <div class="content" id="content">
+            <div id="empty">none</div>
+            <div id="content">
                 <content></content>
             </div>
         </div>
@@ -20,17 +21,20 @@
         properties: {
             label: String
         },
-        attached: function () {
-            // fetching text content fails before binding, so wait 100ms for this to happen
-            // HACK
-            // this.async(this.checkContent, 500);
-        },
-        checkContent: function () {
-            var _nodes = this.getEffectiveChildNodes();
-            if (_nodes == undefined || _nodes.length == 0) return; 
-            if (_nodes[0].textContent == "") {
-                this.$.content.innerText = "none";
-                this.toggleClass("greyout", true, this.$.content);
+        ready: function () {
+            var self = this;
+
+            var observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    var val = mutation.target.textContent;
+                    self.$.empty.hidden = (val != "");
+                });
+            });
+            var config = { attributes: true, childList: true, characterData: true };
+
+            var nodes = this.getEffectiveChildNodes();
+            for (var i = 0; i < nodes.length; i++) {
+                observer.observe(nodes[i], config);
             }
         }
     });
