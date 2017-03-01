@@ -3,32 +3,31 @@
 <link rel="import" href="../iron-icons/iron-icons.html"/>
 
 <dom-module id="nav-item">
-<template>
-    <style>
-        #navlink { height:56px; display:flex; align-items:center; color:dimgrey; padding-left:16px; padding-right:20px; cursor:pointer; }
-        #navlink:hover { background-color:gainsboro }
-        iron-icon { padding-right:4px }
-    </style>
-    <div id="navlink" on-tap="navigate">
-        <template is="dom-if" if="icon != undefined">
-            <iron-icon icon="{{icon}}"></iron-icon>
-        </template>
-        <content></content>
-    <div>
-</template>
-<script>
-    Polymer({
-        is:"nav-item",
-        properties: {
-            href: String, 
-            icon: String
-        },
-        navigate: function() {
-            if(this.href == undefined) return; 
-            this.fire("xenon-layout-navigate");
-            window.location = this.href;
-        }
-    })
-    
-</script>
+    <template>
+        <style>
+            #navlink { height:56px; display:flex; align-items:center; color:dimgrey; padding-left:16px; padding-right:20px; cursor:pointer; }
+            #navlink:hover { background-color:gainsboro }
+            iron-icon { padding-right:4px }
+        </style>
+        <div id="navlink" on-tap="navigate">
+            <template is="dom-if" if="icon != undefined">
+                <iron-icon icon="{{icon}}"></iron-icon>
+            </template>
+            <content></content>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "nav-item",
+            properties: {
+                href: String,
+                icon: String
+            },
+            navigate: function () {
+                if (this.href == undefined) return;
+                this.fire("xenon-layout-navigate");
+                window.location = this.href;
+            }
+        });
+    </script>
 </dom-module>
