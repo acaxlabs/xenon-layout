@@ -36,6 +36,8 @@
             for (var i = 0; i < nodes.length; i++) {
                 observer.observe(nodes[i], config);
             }
+            
+            self.$.empty.hidden = (this.$.inside.textContent != "");
         }
     });
     </script>
