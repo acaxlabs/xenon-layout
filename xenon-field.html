@@ -27,7 +27,8 @@
             var observer = new MutationObserver(function (mutations) {
                 mutations.forEach(function (mutation) {
                     var val = mutation.target.textContent;
-                    self.$.empty.hidden = (val != "");
+                    var pat = /[a-zA-Z0-9]/;
+                    self.$.empty.hidden = (pat.test(val));
                 });
             });
             var config = { attributes: true, childList: true, characterData: true };
