@@ -1,0 +1,66 @@
+<link rel="import" href="../polymer/polymer.html" />
+<!--
+`<lithium-popover>` creates a popup.
+
+Example:
+
+    <lithium-popover>
+        <h2>Popup Demo</h2>
+    </lithium-popover>
+
+@element lithium-popover
+@demo demo/index.html
+-->
+<dom-module id="xenon-dialog">
+    <template>
+        <style>
+            .scrollable { overflow-y: scroll }
+            #buttonarea ::content buttons { margin:16px -4px 0px -4px; }
+
+        </style>
+        <div id="scrim" on-click="_taphide" style="cursor:pointer; z-index:10000; position:fixed; display:flex; top:0px; left:0px; width:100%; height:100%; background-color: rgba(0,0,0,0.6)">
+            <div id="card" style="flex:0 0 auto; margin:auto; background-color:white; padding:32px; min-width:320px; max-width:600px; max-height:100%;">
+                <content select="main"></content>
+                <div id="buttonarea" style="display:flex">
+                    <div style="flex:1 1 auto"></div>
+                    <content select="buttons"></content>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "xenon-dialog",
+            properties: {
+                /* Enable to allow user to click outside the popover to close it */
+                tapToHide: { type: Boolean, value: false },
+
+                /* Enable to allow the contents of the popover to scroll */
+                scrollable: { type: Boolean, value: false, observer: "_scrollableChange" },
+
+                /* elevation */
+                zIndex: { type:String, value: "10000", observer: "_onZIndexChange" }
+            },
+            ready: function () {
+                this.hidden = true;
+            },
+            _onZIndexChange: function(zIndex) {
+                this.$.scrim.style.zIndex = zIndex;
+            },
+            _scrollableChange: function() {
+                this.toggleClass("scrollable", this.scrollable, this.$.card);
+            },
+            _taphide: function () {
+                if(this.tapToHide) this.hidden = true;
+            },
+            /* Call hide to close the popover. */
+            hide: function () {
+                this.hidden = true;
+            },
+            /* Call show to open the popover and show it. */
+            show: function () {
+                this.hidden = false;
+            }
+        });
+    </script>
+</dom-module>
