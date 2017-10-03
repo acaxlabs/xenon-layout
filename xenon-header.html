@@ -2,7 +2,8 @@
 <dom-module id="xenon-header">
     <template>
         <style is="custom-style">
-            #heading { font-size: 18pt; display:flex; align-items:center; @apply(--paper-card-header-text); }
+            #heading {  display:flex; align-items:center;  }
+            #headerText { font-size: 18pt; @apply(--paper-card-header-text); }
             #subheading { color: grey; @apply(--xenon-subheading-theme); }
             #actionarea ::content actions { color: gray; cursor: pointer; }
 
@@ -11,7 +12,7 @@
             }
         </style>
         <div id="heading">
-            <div>[[heading]]</div>
+            <div id="headerText">[[heading]]</div>
             <div style="flex:1 1 auto"></div>
             <div id="actionarea"><content select="actions"></content></div>
         </div>
