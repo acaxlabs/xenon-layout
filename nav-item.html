@@ -21,12 +21,16 @@
             is: "nav-item",
             properties: {
                 href: String,
-                icon: String
+                icon: String, 
+                target: String
             },
             navigate: function () {
                 if (this.href == undefined) return;
                 this.fire("xenon-layout-navigate");
-                window.location = this.href;
+                if (this.target == "_blank")
+                    window.open(this.href);
+                else
+                    window.location = this.href;
             }
         });
     </script>
