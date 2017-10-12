@@ -1,14 +1,23 @@
-<link rel="import" href="../polymer/polymer.html" />
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="xenon-header.html">
 <!--
-`<lithium-popover>` creates a popup.
+`<xenon-dialog>` creates a popup.
 
 Example:
 
-    <lithium-popover>
-        <h2>Popup Demo</h2>
-    </lithium-popover>
+    <xenon-dialog heading="It can have headings">
+        <actions>
+            <iron-icon icon="add"></iron-icon>
+        </actions>
+        <main>
+            The main content goes here. 
+        </main>
+        <buttons>
+            <paper-button>And Buttons</paper-button>
+        </buttons>
+    </xenon-dialog>
 
-@element lithium-popover
+@element xenon-dialog
 @demo demo/index.html
 -->
 <dom-module id="xenon-dialog">
@@ -16,10 +25,14 @@ Example:
         <style>
             .scrollable { overflow-y: scroll }
             #buttonarea ::content buttons { margin:16px -4px 0px -4px; }
-
         </style>
         <div id="scrim" on-click="_taphide" style="cursor:pointer; z-index:10000; position:fixed; display:flex; top:0px; left:0px; width:100%; height:100%; background-color: rgba(0,0,0,0.6)">
-            <div id="card" style="flex:0 0 auto; margin:auto; background-color:white; padding:32px; min-width:320px; max-width:600px; max-height:100%;">
+            <div id="card" style="flex:1 1 auto; margin:auto; background-color:white; padding:32px; min-width:320px; max-width:600px; max-height:100%;">
+                <xenon-header heading="{{heading}}">
+                    <actions>
+                        <content select="actions"></content>
+                    </actions>
+                </xenon-header>
                 <content select="main"></content>
                 <div id="buttonarea" style="display:flex">
                     <div style="flex:1 1 auto"></div>
@@ -39,7 +52,10 @@ Example:
                 scrollable: { type: Boolean, value: false, observer: "_scrollableChange" },
 
                 /* elevation */
-                zIndex: { type:String, value: "10000", observer: "_onZIndexChange" }
+                zIndex: { type:String, value: "10000", observer: "_onZIndexChange" }, 
+
+                /* heading for the dialog card */
+                heading: { type:String }
             },
             ready: function () {
                 this.hidden = true;
