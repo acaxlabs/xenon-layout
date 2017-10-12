@@ -33,7 +33,7 @@ Example:
         <style>
             #bodywrap { display: flex; flex-direction:column; height:100%; background-color:whitesmoke; }
             #heading { flex: 1 1 auto; }
-            #main { padding-left: 240px; flex: 1 1 auto; overflow-y:scroll;-webkit-overflow-scrolling: touch;}
+            #main { padding-left: 240px; flex: 1 1 auto; overflow-y:scroll; -webkit-overflow-scrolling: touch;}
             #main ::content { height:inherit; }
             #main ::content > * { height:inherit; display:flex; flex-direction:column; }
             #main ::content > main > spacer { flex: 1 1 auto; }
@@ -74,7 +74,8 @@ Example:
         },
         /* listen for nav clicks from nav-item children */
         listeners: {
-            "xenon-layout-navigate":"toggleNav"
+            "xenon-layout-navigate": "toggleNav",
+            "xenon-layout-scroll-top": "scrollTop"
         },
         /* trigger a redraw when the window loads */
         ready: function() {
@@ -121,6 +122,10 @@ Example:
                     this.showNav();
                 }
             }
+        }, 
+        /* scroll the view port to the top */
+        scrollTop: function () {
+            this.$.main.scrollTo(0, 0);
         }
     });
     </script>
