@@ -36,9 +36,8 @@
             var nodes = this.getEffectiveChildNodes();
             for (var i = 0; i < nodes.length; i++) {
                 observer.observe(nodes[i], config);
+                if (nodes[i].textContent != "") self.$.empty.hidden = true;
             }
-            
-            self.$.empty.hidden = (this.$.inside.textContent != "");
         }
     });
     </script>
