@@ -3,11 +3,12 @@
     <template>
         <style>
             label { font-size:12px; color:grey; font-family: Roboto, Noto, sans-serif; font-weight:400 }
-            #wrap { margin: 12px 0px 8px 0px }
+            #container { margin: 12px 0px 8px 0px }
             #empty { color:gainsboro }
-            #content { margin-top: 4px; height:1.2em; }
+            #content { margin-top: 4px; }
+            #content.xwrap { height: 1.2em; overflow: hidden; }
         </style>
-        <div id="wrap">
+        <div id="container">
             <label>{{label}}</label>
             <div id="empty" hidden>none</div>
             <div id="content">
@@ -19,7 +20,11 @@
     Polymer({
         is:"xenon-field",
         properties: {
-            label: String
+            /* text label that floats above the content */
+            label: String, 
+
+            /* allow the content body to span more than one line, by default content is constrained */
+            multiline: { type:Boolean, value:false, observer:"_multilineChange"}
         },
         ready: function () {
             var self = this;
@@ -31,6 +36,7 @@
                     self.$.empty.hidden = (pat.test(val));
                 });
             });
+
             var config = { attributes: true, childList: true, characterData: true };
 
             var nodes = this.getEffectiveChildNodes();
@@ -38,6 +44,9 @@
                 observer.observe(nodes[i], config);
                 if (nodes[i].textContent != "") self.$.empty.hidden = true;
             }
+        },
+        _multilineChange: function (multiline) {
+            this.toggleClass("xwrap", !multiline, this.$.content);
         }
     });
     </script>
