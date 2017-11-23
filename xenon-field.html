@@ -1,18 +1,20 @@
-<link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../polymer/polymer.html">
 <dom-module id="xenon-field">
     <template>
         <style>
             label { font-size:12px; color:grey; font-family: Roboto, Noto, sans-serif; font-weight:400 }
-            #container { margin: 12px 0px 8px 0px }
+            #wrap { margin: 12px 0px 8px 0px }
             #empty { color:gainsboro }
-            #content { margin-top: 4px; }
+            #content, #empty { margin-top: 4px; height:1.2em; }
             #content.xwrap { height: 1.2em; overflow: hidden; }
         </style>
-        <div id="container">
+        <div id="wrap">
             <label>{{label}}</label>
-            <div id="empty" hidden>none</div>
-            <div id="content">
-                <content id="inside"></content>
+            <div id="empty" hidden$="{{!isEmpty}}">
+                none
+            </div>
+            <div id="content" hidden$="{{isEmpty}}">
+                <content></content>
             </div>
         </div>
     </template>
@@ -24,27 +26,38 @@
             label: String, 
 
             /* allow the content body to span more than one line, by default content is constrained */
-            multiline: { type:Boolean, value:false, observer:"_multilineChange"}
+            multiline: { type:Boolean, value:false, observer:"_multilineChange" },
+
+            /* updated as children are observed to show the none placeholder */
+            isEmpty: { type:Boolean, value: true }
         },
+        /* set up an observer to watch my child tree for content */
         ready: function () {
             var self = this;
-
-            var observer = new MutationObserver(function (mutations) {
+            this.observer = new MutationObserver(function (mutations) {
                 mutations.forEach(function (mutation) {
                     var val = mutation.target.textContent;
                     var pat = /[a-zA-Z0-9]/;
-                    self.$.empty.hidden = (pat.test(val));
+                    self.isEmpty = !pat.test(val);
                 });
             });
-
-            var config = { attributes: true, childList: true, characterData: true };
-
+            this.config = { attributes: true, childList: true, characterData: true };
             var nodes = this.getEffectiveChildNodes();
             for (var i = 0; i < nodes.length; i++) {
-                observer.observe(nodes[i], config);
-                if (nodes[i].textContent != "") self.$.empty.hidden = true;
+                this._observe(nodes[i], this.config);
+                if (nodes[i].textContent != "") this.isEmpty = false; 
+            }
+        }, 
+        /* recurse through children */
+        _observe: function(node) {
+            this.observer.observe(node, this.config);
+            var nodes  = node.childNodes; 
+            for (var i = 0; i < nodes.length; i++) {
+                this._observe(nodes[i], this.config);
+                if (nodes[i].textContent != "") this.isEmpty = false; 
             }
         },
+        /* update the class to allow text wrapped content */
         _multilineChange: function (multiline) {
             this.toggleClass("xwrap", !multiline, this.$.content);
         }
