@@ -79,8 +79,14 @@ Example:
             hide: function () {
                 this.hidden = true;
             },
+            close: function () {
+                this.hidden = true;
+            },
             /* Call show to open the popover and show it. */
             show: function () {
+                this.hidden = false;
+            }, 
+            open: function () {
                 this.hidden = false;
             }
         });
