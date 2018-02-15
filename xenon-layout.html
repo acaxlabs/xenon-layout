@@ -81,7 +81,8 @@ Example:
         },
         /* listen for nav clicks from nav-item children */
         listeners: {
-            "xenon-layout-navigate":"toggleNav"
+            "xenon-layout-navigate" : "toggleNav", 
+            "xenon-scroll-top" : "onScrollTop"
         },
         /* trigger a redraw when the window loads */
         ready: function() {
@@ -103,6 +104,9 @@ Example:
             } else {
                 this.showNav();
             }
+        },
+        onScrollTop: function () {
+            this.$.main.scrollTo(0, 0);
         },
         /* Method to repaint the navigation and detect mobile or desktop layout. */
         redraw: function() {
