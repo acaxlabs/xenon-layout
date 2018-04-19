@@ -22,19 +22,17 @@ Example:
 -->
 <dom-module id="xenon-dialog">
     <template>
-        <style>
-            .scrollable { overflow-y: scroll }
-            #buttonarea ::content buttons { margin:16px -4px 0px -4px; }
-        </style>
         <div id="scrim" on-click="_taphide" style="cursor:pointer; z-index:10000; position:fixed; display:flex; top:0px; left:0px; width:100%; height:100%; background-color: rgba(0,0,0,0.6)">
-            <div id="card" style$="box-sizing:border-box; flex:1 1 auto; margin:auto; background-color:white; padding:32px; min-width:320px; max-width:600px; max-height:96%; {{style}}">
-                <xenon-header heading="{{heading}}">
+            <div id="card" style$="display:flex; flex-direction:column; box-sizing:border-box; flex:1 1 auto; margin:auto; background-color:white; min-width:320px; max-width:600px; max-height:96%; {{style}}">
+                <xenon-header heading="{{heading}}" style="margin:32px">
                     <actions>
                         <content select="actions"></content>
                     </actions>
                 </xenon-header>
-                <content select="main"></content>
-                <div id="buttonarea" style="display:flex">
+                <div style="overflow-y:auto; flex:1 1 auto; padding:0px 32px 0px 32px;">
+                    <content select="main"></content>
+                </div>
+                <div id="buttonarea" style="display:flex; flex:1 0 auto; padding:32px">
                     <div style="flex:1 1 auto"></div>
                     <content select="buttons"></content>
                 </div>
@@ -47,9 +45,6 @@ Example:
             properties: {
                 /* Enable to allow user to click outside the popover to close it */
                 tapToHide: { type: Boolean, value: false },
-
-                /* Enable to allow the contents of the popover to scroll */
-                scrollable: { type: Boolean, value: false, observer: "_scrollableChange" },
 
                 /* elevation */
                 zIndex: { type: String, value: "10000", observer: "_onZIndexChange" }, 
