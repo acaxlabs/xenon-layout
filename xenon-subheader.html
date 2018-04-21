@@ -17,7 +17,14 @@ Example:
             #actionarea { color:darkgray; }
         </style>
         <div id="heading">
-            <div id="headerText">[[heading]]</div>
+            <div id="headerText">
+                <template is="dom-if" if="{{href}}">
+                    <a href="[[href]]">[[heading]]</a>
+                </template>
+                <template is="dom-if" if="{{!href}}">
+                  [[heading]]
+                </template>
+            </div>
             <div style="flex:1 1 auto"></div>
             <div id="actionarea"><content select="actions"></content></div>
         </div>
@@ -26,9 +33,9 @@ Example:
 		Polymer({
 			is: "xenon-subheader",
 			properties: {
-				heading: String
+                heading: String,
+                href: { type: String, reflectToAttribute: true},
 			}
 		});
     </script>
 </dom-module>
-
