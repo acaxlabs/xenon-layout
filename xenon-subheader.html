@@ -18,10 +18,10 @@ Example:
         </style>
         <div id="heading">
             <div id="headerText">
-                <template is="dom-if" if="{{href}}">
+                <template is="dom-if" if="{{showHeading}}">
                     <a href="[[href]]">[[heading]]</a>
                 </template>
-                <template is="dom-if" if="{{!href}}">
+                <template is="dom-if" if="{{!showHeading}}">
                   [[heading]]
                 </template>
             </div>
@@ -33,9 +33,13 @@ Example:
 		Polymer({
 			is: "xenon-subheader",
 			properties: {
-                heading: String,
-                href: { type: String, reflectToAttribute: true},
-			}
+                heading: { type: String, reflectToAttribute: true },
+                href: { type: String, reflectToAttribute: true, observer: "inlineCheck" },
+                showHeading: { type: Boolean, value: false }
+            },
+            inlineCheck: function (href) {
+                this.set("showHeading", true);
+            }
 		});
     </script>
 </dom-module>
